@@ -1,0 +1,6 @@
+{
+  "name": "FUNky Buddies NFT",
+  "description": "Official website for FUNky Buddies NFT on Robinhood Chain (1,999 total supply). Featuring FCFS Spot whitelist, floor protection buyback & burn, and OpenSea integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

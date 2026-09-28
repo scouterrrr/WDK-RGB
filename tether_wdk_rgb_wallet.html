@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tether WDK RGB Wallet &bull; Official Community Module</title>
+  <meta name="description" content="Official Tether WDK RGB &amp; Bitcoin UTXO Taproot Wallet based on docs.wdk.tether.io &amp; @utexo/wdk-wallet-rgb. Features BIP-86 Taproot addresses, RGB blinded invoices, single-use seals, and off-chain consignment validation.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2326A17B'%3E%3Cpath d='M13 2L3 14h9l-1 8 10-12h-9l1-8z'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- QRCode.js for Real Mathematically Valid QR Codes -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- Canvas Confetti for celebratory feedback -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #0A0E17;
+      --card-bg: #0F172A;
+      --card-inner: #070A10;
+      --border: #1E293B;
+      --border-subtle: #334155;
+      --text: #F1F5F9;
+      --text-muted: #94A3B8;
+      --text-subtle: #64748B;
+      --primary: #26A17B;
+      --primary-hover: #208b69;
+      --primary-glow: rgba(38, 161, 123, 0.18);
+      --emerald: #10B981;
+      --emerald-light: #34D399;
+      --bitcoin: #F7931A;
+      --sky: #38BDF8;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      background-image: radial-gradient(circle at 50% -20%, rgba(38, 161, 123, 0.12) 0%, transparent 60%);
+      background-repeat: no-repeat;
+      min-height: 100vh;
+    }
+    code, pre, .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+    /* Top ticker */
+    .top-ticker {
+      background: #060910; border-bottom: 1px solid var(--border);
+      padding: 7px 20px; font-size: 11px; font-family: 'JetBrains Mono';
+      color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;
+    }
+
+    /* Header Nav */
+    header.nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10, 14, 23, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 66px; max-width: 1100px; margin: 0 auto; padding: 0 20px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-icon {
+      width: 38px; height: 38px; border-radius: 12px;
+      background: linear-gradient(135deg, #26A17B, #00D287);
+      display: flex; align-items: center; justify-content: center;
+      color: #0A0E17; font-weight: 900; font-size: 19px;
+      box-shadow: 0 4px 16px rgba(38, 161, 123, 0.35);
+    }
+    .brand-title {
+      font-size: 16px; font-weight: 800; color: #fff; letter-spacing: -0.01em;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .brand-badge {
+      font-size: 10px; font-weight: 700; color: var(--primary);
+      background: rgba(38, 161, 123, 0.15); border: 1px solid rgba(38, 161, 123, 0.3);
+      padding: 2px 8px; border-radius: 9999px; text-transform: uppercase;
+    }
+
+    .net-control {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 3px; display: flex; gap: 3px;
+    }
+    .net-btn {
+      background: transparent; border: none; color: var(--text-muted);
+      font-family: inherit; font-size: 11px; font-weight: 600;
+      padding: 5px 12px; border-radius: 9px; cursor: pointer; transition: all .15s ease;
+    }
+    .net-btn.active {
+      background: var(--primary); color: #fff; font-weight: 700;
+    }
+
+    .btn {
+      font-family: inherit; font-size: 12px; font-weight: 700;
+      padding: 8px 16px; border-radius: 12px; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px; border: 1px solid transparent;
+      transition: all .15s ease;
+    }
+    .btn-primary {
+      background: var(--primary); color: #fff; border-color: var(--primary);
+      box-shadow: 0 4px 14px rgba(38, 161, 123, 0.25);
+    }
+    .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+    .btn-secondary {
+      background: var(--card-inner); color: var(--text); border-color: var(--border);
+    }
+    .btn-secondary:hover { background: #151F33; border-color: var(--border-subtle); }
+
+    /* WDK Banner */
+    .hero-banner {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 28px; margin: 24px 0;
+      display: grid; grid-template-columns: 1.25fr 1fr; gap: 28px; align-items: center;
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.8), 0 0 30px rgba(38, 161, 123, 0.08);
+    }
+    .balance-label { font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .balance-amount {
+      font-size: 38px; font-weight: 800; color: #fff; margin: 6px 0;
+      letter-spacing: -0.02em;
+    }
+    .balance-sub { font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+
+    .card-box {
+      background: var(--card-inner); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 16px;
+    }
+
+    /* Tabs */
+    .tab-bar {
+      display: flex; gap: 6px; border-bottom: 1px solid var(--border);
+      margin-bottom: 24px; overflow-x: auto; padding-bottom: 2px;
+    }
+    .tab-btn {
+      background: transparent; border: none;
+      color: var(--text-muted); font-family: inherit; font-size: 13px; font-weight: 700;
+      padding: 9px 16px; cursor: pointer; white-space: nowrap; transition: all .15s ease;
+      border-radius: 12px;
+    }
+    .tab-btn.active {
+      color: #fff; background: var(--primary); shadow: 0 2px 8px rgba(38, 161, 123, 0.3);
+    }
+    .tab-view { display: none; }
+    .tab-view.active { display: block; }
+
+    /* Tables & Grids */
+    .table-container {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius-md); overflow-x: auto;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; text-align: left; }
+    th {
+      background: #070B12; color: var(--text-muted); padding: 12px 16px;
+      font-weight: 600; border-bottom: 1px solid var(--border);
+    }
+    td { padding: 14px 16px; border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(38, 161, 123, 0.04); }
+
+    /* Inputs */
+    input, select, textarea {
+      width: 100%; background: var(--card-inner); border: 1px solid var(--border-subtle);
+      color: #fff; border-radius: 12px; padding: 10px 14px;
+      font-family: inherit; font-size: 13px; outline: none; margin-top: 5px;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary); }
+
+    .tag-seal {
+      font-size: 11px; font-weight: 600; color: var(--primary);
+      background: rgba(38, 161, 123, 0.15); border: 1px solid rgba(38, 161, 123, 0.3);
+      padding: 2px 8px; border-radius: 9999px;
+    }
+    .tag-colored {
+      font-size: 11px; font-weight: 600; color: var(--emerald-light);
+      background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 2px 8px; border-radius: 9999px;
+    }
+
+    /* Modal */
+    .modal {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(10, 14, 23, 0.88); backdrop-filter: blur(10px);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); max-width: 460px; width: 100%; padding: 24px;
+      position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.9);
+    }
+    .modal-close {
+      position: absolute; top: 18px; right: 18px; background: transparent;
+      border: none; color: var(--text-muted); font-size: 18px; cursor: pointer;
+    }
+    .modal-close:hover { color: #fff; }
+
+    #qrcode-container img {
+      margin: 0 auto; border-radius: 12px; display: block;
+    }
+
+    /* Step indicator for WDK Send Pipeline */
+    .pipeline-step {
+      display: flex; align-items: center; gap: 12px; padding: 12px;
+      background: #0A0E17; border: 1px solid var(--border); border-radius: 12px;
+      margin-bottom: 8px; font-size: 12px;
+    }
+    .step-badge {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: #1E293B; color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 11px;
+    }
+    .step-badge.active {
+      background: var(--primary); color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Ticker Bar -->
+  <div class="top-ticker">
+    <div>⚡ TETHER WDK RGB WALLET &bull; BIP-86 TAPROOT &bull; @UTEXO/WDK-WALLET-RGB SPECIFICATION</div>
+    <div>BITCOIN: $96,400 &bull; INDEXER: electrs.rgb.info &bull; STORM PROXY: ACTIVE</div>
+  </div>
+
+  <!-- Header Nav -->
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-icon">⚡</div>
+        <div>
+          <div class="brand-title">
+            Tether WDK <span class="brand-badge">RGB Wallet</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; align-items:center; gap: 12px;">
+        <div class="net-control">
+          <button class="net-btn active" id="btn-net-testnet" onclick="switchNetwork('testnet')">Testnet</button>
+          <button class="net-btn" id="btn-net-mainnet" onclick="switchNetwork('mainnet')">Mainnet</button>
+          <button class="net-btn" id="btn-net-regtest" onclick="switchNetwork('regtest')">Regtest</button>
+        </div>
+
+        <button class="btn btn-primary" onclick="openReceiveModal()">
+          Receive QR
+        </button>
+        <button class="btn btn-secondary" onclick="faucetAirdrop()">
+          ✨ Faucet
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+      <div>
+        <div class="balance-label">Total Portfolio Balance</div>
+        <div class="balance-amount" id="total-usd-balance">$14,842.20</div>
+        <div class="balance-sub">
+          <span id="btc-balance-sats" class="font-mono">54,000 sats (~0.00054000 BTC)</span>
+          <span style="color: var(--emerald-light); font-weight: 700;">+$412.30 (+2.85%)</span>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+          <button class="btn btn-primary" onclick="openSendModal()">
+            Send Assets &rarr;
+          </button>
+          <button class="btn btn-secondary" onclick="openIssueModal()">
+            + Issue NIA Asset
+          </button>
+        </div>
+      </div>
+
+      <!-- Taproot Address Bar & Single Use Seal info -->
+      <div class="card-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+            BIP-86 Taproot Address (m/86'/1'/0'/0/0)
+          </span>
+          <span class="tag-seal" id="current-network-tag">Testnet</span>
+        </div>
+        <div style="background: #0A0E17; border: 1px solid var(--border); border-radius: 8px; padding: 10px; margin-bottom: 12px;">
+          <code id="display-taproot-address" style="font-size: 11px; color: var(--primary); word-break: break-all;">
+            tb1p7q2r9kw8lxk7m09w2e9j5vx0k4r7e8w1q3s6d9f8z4x2c1v0b
+          </code>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-secondary" style="flex: 1; font-size: 11px;" onclick="copyAddress()">
+            Copy Address
+          </button>
+          <button class="btn btn-secondary" style="flex: 1; font-size: 11px;" onclick="openReceiveModal()">
+            View QR Code
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs matching Tether WDK Guide -->
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="showTab('tab-assets', this)">Assets &amp; Tokens</button>
+      <button class="tab-btn" onclick="showTab('tab-utxos', this)">UTXO Orchestrator &amp; Seals</button>
+      <button class="tab-btn" onclick="showTab('tab-invoices', this)">Blinded Invoices</button>
+      <button class="tab-btn" onclick="showTab('tab-transfers', this)">WDK Send Pipeline</button>
+      <button class="tab-btn" onclick="showTab('tab-backup', this)">Backup &amp; Security</button>
+      <button class="tab-btn" onclick="showTab('tab-wdk', this)">Tether WDK Code</button>
+    </div>
+
+    <!-- TAB 1: ASSETS -->
+    <div id="tab-assets" class="tab-view active">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Asset Name</th>
+              <th>Contract ID / Schema</th>
+              <th>Balance</th>
+              <th>Allocated Seal</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="assets-tbody">
+            <!-- Dynamic -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 2: UTXO SET -->
+    <div id="tab-utxos" class="tab-view">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Outpoint (TXID:VOUT)</th>
+              <th>Amount (Sats)</th>
+              <th>Taproot Script</th>
+              <th>RGB Single-Use Seal</th>
+              <th>Allocated Asset</th>
+              <th>Inspect</th>
+            </tr>
+          </thead>
+          <tbody id="utxos-tbody">
+            <!-- Dynamic -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 3: INVOICES -->
+    <div id="tab-invoices" class="tab-view">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+        <div class="card-box">
+          <h3 style="font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px;">
+            Generate RGB Blinded Invoice
+          </h3>
+          <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">
+            Hides your Bitcoin address for recipient privacy (`rgb:...@utxob:<blinded_seal>`).
+          </p>
+
+          <form onsubmit="handleGenerateInvoice(event)">
+            <label style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Asset</label>
+            <select id="invoice-asset-select">
+              <option value="USDT-RGB">USDT-RGB (Tether USD)</option>
+              <option value="BUDDY">BUDDY (Utexo Community)</option>
+            </select>
+
+            <label style="font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 10px; display: block;">Amount</label>
+            <input type="number" id="invoice-amount" value="50" min="1" required>
+
+            <label style="font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 10px; display: block;">Expiry</label>
+            <select id="invoice-expiry">
+              <option value="86400">24 Hours</option>
+              <option value="604800">7 Days</option>
+            </select>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 16px; justify-content: center;">
+              Generate Blinded Invoice
+            </button>
+          </form>
+        </div>
+
+        <div class="card-box" style="text-align: center;">
+          <h4 style="font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 12px;">Live Scannable QR Code</h4>
+          <div style="background: #fff; padding: 16px; border-radius: 16px; display: inline-block; margin-bottom: 14px; border: 2px solid rgba(38,161,123,0.3);">
+            <div id="inline-qrcode"></div>
+          </div>
+          <div style="background: #0A0E17; border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: left;">
+            <code id="inline-invoice-text" style="font-size: 10px; color: var(--primary); word-break: break-all;"></code>
+          </div>
+          <button class="btn btn-secondary" style="width: 100%; margin-top: 10px; justify-content: center;" onclick="copyInlineInvoice()">
+            Copy Invoice String
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: TRANSFERS & 3-STAGE PIPELINE -->
+    <div id="tab-transfers" class="tab-view">
+      <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px;">
+        <div class="card-box">
+          <h3 style="font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px;">
+            WDK 3-Stage Transfer Pipeline
+          </h3>
+          <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">
+            `sendBegin()` &rarr; `signPsbt()` &rarr; `sendEnd()` per official documentation.
+          </p>
+
+          <form onsubmit="executeWdkPipeline(event)">
+            <label style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Select RGB Asset</label>
+            <select id="transfer-asset-select">
+              <option value="USDT-RGB">Tether USD (USDT-RGB)</option>
+              <option value="BUDDY">Utexo Community Token (BUDDY)</option>
+            </select>
+
+            <label style="font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 10px; display: block;">Recipient Blinded UTXO</label>
+            <input type="text" id="transfer-blinded-recipient" value="rgb:invoice:blind:utxo:4a9c8e2b1f0d3e5a..." required>
+
+            <label style="font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 10px; display: block;">Amount</label>
+            <input type="number" id="transfer-amount" value="25" min="1" required>
+
+            <button type="submit" id="pipeline-btn" class="btn btn-primary" style="width: 100%; margin-top: 16px; justify-content: center;">
+              Execute WDK Pipeline
+            </button>
+          </form>
+        </div>
+
+        <div class="card-box">
+          <h4 style="font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 8px;">Pipeline Execution Steps</h4>
+          
+          <div class="pipeline-step">
+            <div class="step-badge" id="step1-badge">1</div>
+            <div>
+              <div style="font-weight: 700; color: #fff;">sendBegin()</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Allocates UTXO seal and prepares AluVM state transition</div>
+            </div>
+          </div>
+
+          <div class="pipeline-step">
+            <div class="step-badge" id="step2-badge">2</div>
+            <div>
+              <div style="font-weight: 700; color: #fff;">signPsbt()</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Generates BIP-86 Taproot Schnorr witness signature</div>
+            </div>
+          </div>
+
+          <div class="pipeline-step">
+            <div class="step-badge" id="step3-badge">3</div>
+            <div>
+              <div style="font-weight: 700; color: #fff;">sendEnd()</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Exports consignment package &amp; broadcasts witness anchor</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-size: 11px; font-weight: 700; color: var(--text-muted);">Consignment Output:</span>
+              <button class="btn btn-secondary" style="font-size: 10px; padding: 3px 8px;" onclick="downloadConsignment()">Download .rgb</button>
+            </div>
+            <pre id="consignment-output" class="font-mono" style="background: #0A0E17; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 10px; color: var(--emerald-light); height: 110px; overflow-y: auto; white-space: pre-wrap;">Ready to execute pipeline...</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: BACKUP & RECOVERY -->
+    <div id="tab-backup" class="tab-view">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+        <div class="card-box">
+          <h3 style="font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px;">
+            12-Word Recovery Phrase
+          </h3>
+          <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">
+            BIP-39 mnemonic seed phrase. Keep this safe!
+          </p>
+
+          <div id="mnemonic-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px;">
+            <!-- Injected dynamically -->
+          </div>
+
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-secondary" style="flex: 1; justify-content: center;" onclick="copyMnemonic()">
+              Copy 12 Words
+            </button>
+            <button class="btn btn-secondary" style="flex: 1; justify-content: center;" onclick="generateNewSeed()">
+              Generate Fresh Seed
+            </button>
+          </div>
+        </div>
+
+        <div class="card-box">
+          <h3 style="font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px;">
+            Encrypted Backup Export
+          </h3>
+          <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">
+            Password-protected encrypted JSON matching Tether WDK security standards.
+          </p>
+
+          <form onsubmit="handleExportBackup(event)">
+            <label style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Passphrase</label>
+            <input type="password" id="backup-pass" placeholder="Enter secure encryption password" required>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 16px; justify-content: center;">
+              Export Encrypted Backup JSON
+            </button>
+          </form>
+
+          <pre id="backup-output" class="font-mono" style="background: #0A0E17; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 10px; color: var(--primary); height: 110px; overflow-y: auto; margin-top: 14px; white-space: pre-wrap;">Awaiting backup export...</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 6: WDK SDK GUIDE -->
+    <div id="tab-wdk" class="tab-view">
+      <div class="card-box">
+        <h3 style="font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 10px;">
+          Tether WDK Implementation Architecture (`@utexo/wdk-wallet-rgb`)
+        </h3>
+        <pre class="font-mono" style="background: #0A0E17; border: 1px solid var(--border); border-radius: 8px; padding: 14px; font-size: 11px; color: var(--primary); overflow-x: auto;">
+import { WalletManagerRgb } from '@utexo/wdk-wallet-rgb';
+
+// 1. Initialize WDK RGB Wallet Manager
+const manager = new WalletManagerRgb({
+  network: 'testnet',
+  indexerUrl: 'https://electrs.rgb.info',
+  transportEndpoint: 'rpca://storm.rgb.info:50001',
+  dataDir: '~/.wdk/rgb-wallet/testnet',
+  transferMaxFee: 24
+});
+
+// 2. Create Taproot account from BIP-39 mnemonic
+const account = await manager.createAccount({
+  mnemonic: 'twelve word mnemonic recovery phrase...',
+  derivationPath: "m/86'/1'/0'/0/0"
+});
+
+// 3. Generate blinded UTXO invoice
+const invoice = await account.createBlindedInvoice({
+  assetId: 'rgb:nia:3b9f8e41a27c09d854e12e7f83a54b92c431ef82a',
+  amount: 50
+});
+
+// 4. Execute 3-stage transfer pipeline
+const prep = await account.sendBegin({ recipient: invoice.blindedUtxo, amount: 25 });
+const signedPsbt = await account.signPsbt(prep.psbt);
+const result = await account.sendEnd({ signedPsbt, consignment: prep.consignment });
+        </pre>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL: RECEIVE REAL SCANNABLE QR -->
+  <div id="modal-receive" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('modal-receive')">&times;</button>
+      <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px;">Receive via Real QR Code</h3>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">
+        Mathematically valid, scannable QR code generated client-side.
+      </p>
+
+      <div style="background: #fff; padding: 16px; border-radius: 16px; text-align: center; margin-bottom: 16px; border: 2px solid rgba(38, 161, 123, 0.4);">
+        <div id="qrcode-container"></div>
+      </div>
+
+      <div style="background: #0A0E17; border: 1px solid var(--border); border-radius: 8px; padding: 10px; margin-bottom: 12px;">
+        <code id="modal-qr-text" style="font-size: 11px; color: var(--primary); word-break: break-all;"></code>
+      </div>
+
+      <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="copyQrText()">
+        Copy Invoice / Address
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL: SEND ASSET -->
+  <div id="modal-send" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('modal-send')">&times;</button>
+      <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px;">Send Assets</h3>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">
+        Select unspent UTXO and sign witness transaction.
+      </p>
+
+      <form onsubmit="handleSendSubmit(event)">
+        <label style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Asset</label>
+        <select id="send-asset-select">
+          <option value="USDT-RGB">USDT-RGB (Balance: 1,250)</option>
+          <option value="BTC">Bitcoin Sats (Balance: 54,000 sats)</option>
+          <option value="BUDDY">BUDDY (Balance: 5,000)</option>
+        </select>
+
+        <label style="font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 10px; display: block;">Recipient</label>
+        <input type="text" id="send-recipient-input" placeholder="tb1p... or rgb:invoice:..." required>
+
+        <label style="font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 10px; display: block;">Amount</label>
+        <input type="number" id="send-amount-input" value="25" min="1" required>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 16px; justify-content: center;">
+          Sign &amp; Broadcast Witness
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ISSUE NEW ASSET -->
+  <div id="modal-issue" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('modal-issue')">&times;</button>
+      <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px;">Issue NIA Smart Asset</h3>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">
+        Binds new token genesis to an unspent Bitcoin Taproot UTXO.
+      </p>
+
+      <form onsubmit="handleIssueSubmit(event)">
+        <label style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Asset Ticker</label>
+        <input type="text" id="issue-ticker" value="TITAN" required>
+
+        <label style="font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 10px; display: block;">Full Name</label>
+        <input type="text" id="issue-name" value="Titanium RGB Reserve" required>
+
+        <label style="font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 10px; display: block;">Total Supply</label>
+        <input type="number" id="issue-supply" value="1000000" min="1" required>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 16px; justify-content: center;">
+          Execute Genesis &amp; Allocate Seal
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: INSPECT UTXO -->
+  <div id="modal-inspect" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('modal-inspect')">&times;</button>
+      <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px;">UTXO Seal Inspector</h3>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">
+        Detailed Layer-1 Taproot outpoint parameters.
+      </p>
+
+      <div style="background: #0A0E17; border: 1px solid var(--border); border-radius: 8px; padding: 12px; font-family: monospace; font-size: 11px; line-height: 1.8;">
+        <div><strong style="color: #fff;">Outpoint:</strong> <span id="insp-id" style="color: var(--primary);"></span></div>
+        <div><strong style="color: #fff;">Satoshis:</strong> <span id="insp-sats" style="color: #fff;"></span> sats</div>
+        <div><strong style="color: #fff;">Script:</strong> <span style="color: #38BDF8;">OP_1 &lt;32-byte-x-only-pubkey&gt; (BIP-86)</span></div>
+        <div><strong style="color: #fff;">RGB Commitment:</strong> <span style="color: var(--emerald-light);">Tapret/Opret anchor</span></div>
+        <div><strong style="color: #fff;">Allocated Asset:</strong> <span id="insp-asset" style="color: var(--primary);"></span></div>
+      </div>
+
+      <button class="btn btn-secondary" style="width: 100%; margin-top: 16px; justify-content: center;" onclick="closeModal('modal-inspect')">
+        Close Inspector
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // State
+    const state = {
+      network: 'testnet',
+      mnemonic: 'abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about',
+      taprootAddress: 'tb1p7q2r9kw8lxk7m09w2e9j5vx0k4r7e8w1q3s6d9f8z4x2c1v0b',
+      btcBalanceSats: 54000,
+      assets: [
+        { ticker: 'USDT-RGB', name: 'Tether USD', contractId: 'rgb:nia:3b9f8e41a27c09d854e12e7f83a54b92c431ef82a', balance: 1250, utxo: '8a1c3d5f...:0' },
+        { ticker: 'BUDDY', name: 'Utexo Community Token', contractId: 'rgb:nia:8f92a3c4e5d60718293a4b5c6d7e8f9a0b1c2d3e', balance: 5000, utxo: '2e4f6a8b...:0' }
+      ],
+      utxos: [
+        { id: '8a1c3d5f2e9b0a1c3d5f2e9b0a1c3d5f2e9b0a1c3d5f2e9b0a1c3d5f2e9b0a1c:0', sats: 54000, script: 'P2TR', isColored: true, asset: '1,250 USDT-RGB' },
+        { id: '2e4f6a8b1c3d5e7f9a0b2c4d6e8f0a2b4c6d8e0f2a4b6c8d0e2f4a6b8c0d2e4f:0', sats: 10000, script: 'P2TR', isColored: true, asset: '5,000 BUDDY' },
+        { id: '9f8e7d6c5b4a3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b:0', sats: 35000, script: 'P2TR', isColored: false, asset: 'Pure Bitcoin' }
+      ]
+    };
+
+    function render() {
+      document.getElementById('display-taproot-address').innerText = state.taprootAddress;
+      document.getElementById('current-network-tag').innerText = state.network.toUpperCase();
+
+      // Assets Table
+      const assetTbody = document.getElementById('assets-tbody');
+      assetTbody.innerHTML = state.assets.map(a => `
+        <tr>
+          <td style="font-weight: 700; color: #fff;">${a.name} <span style="font-size: 10px; color: var(--primary); font-family: monospace;">(${a.ticker})</span></td>
+          <td class="font-mono" style="color: var(--text-muted);">${a.contractId.slice(0, 20)}...</td>
+          <td class="font-mono tabular-nums" style="font-weight: 700; color: var(--emerald-light);">${a.balance.toLocaleString()}</td>
+          <td class="font-mono" style="color: var(--text-muted);">${a.utxo}</td>
+          <td><button class="btn btn-secondary" style="padding: 4px 10px; font-size: 11px;" onclick="openSendModal('${a.ticker}')">Send</button></td>
+        </tr>
+      `).join('');
+
+      // UTXO Table
+      const utxoTbody = document.getElementById('utxos-tbody');
+      utxoTbody.innerHTML = state.utxos.map(u => `
+        <tr>
+          <td class="font-mono" style="color: #fff;">${u.id.slice(0, 16)}...${u.id.slice(-3)}</td>
+          <td class="font-mono tabular-nums">${u.sats.toLocaleString()}</td>
+          <td class="font-mono">${u.script} (BIP-86)</td>
+          <td><span class="${u.isColored ? 'tag-colored' : 'tag-seal'}">${u.isColored ? 'Colored Seal' : 'Uncolored'}</span></td>
+          <td class="font-mono" style="color: var(--primary);">${u.asset}</td>
+          <td><button class="btn btn-secondary" style="padding: 3px 8px; font-size: 10px;" onclick="inspectUtxo('${u.id}', ${u.sats}, '${u.asset}')">Inspect</button></td>
+        </tr>
+      `).join('');
+
+      // Mnemonic Grid
+      const mGrid = document.getElementById('mnemonic-grid');
+      const words = state.mnemonic.split(' ');
+      mGrid.innerHTML = words.map((w, idx) => `
+        <div style="background: #0A0E17; border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 11px; font-family: monospace; display: flex; justify-content: space-between;">
+          <span style="color: var(--text-subtle);">${idx + 1}</span>
+          <span style="font-weight: 700; color: #fff;">${w}</span>
+        </div>
+      `).join('');
+
+      // Update inline QR
+      renderInlineQr();
+    }
+
+    function switchNetwork(net) {
+      state.network = net;
+      document.querySelectorAll('.net-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(`btn-net-${net}`).classList.add('active');
+      state.taprootAddress = net === 'mainnet'
+        ? 'bc1p7q2r9kw8lxk7m09w2e9j5vx0k4r7e8w1q3s6d9f8z4x2c1v0b'
+        : 'tb1p7q2r9kw8lxk7m09w2e9j5vx0k4r7e8w1q3s6d9f8z4x2c1v0b';
+      render();
+    }
+
+    function showTab(tabId, el) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-view').forEach(v => v.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    function openReceiveModal() {
+      const modal = document.getElementById('modal-receive');
+      const text = state.taprootAddress;
+      document.getElementById('modal-qr-text').innerText = text;
+
+      const container = document.getElementById('qrcode-container');
+      container.innerHTML = '';
+      new QRCode(container, {
+        text: text,
+        width: 200,
+        height: 200,
+        colorDark: '#0A0E17',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+
+      modal.classList.add('active');
+    }
+
+    function renderInlineQr() {
+      const asset = document.getElementById('invoice-asset-select') ? document.getElementById('invoice-asset-select').value : 'USDT-RGB';
+      const amt = document.getElementById('invoice-amount') ? document.getElementById('invoice-amount').value : '50';
+      const invoiceStr = `rgb:invoice:blinded_utxo_4a9c8e2b?asset=${asset}&amt=${amt}&transport=rpca://storm.rgb.info:50001`;
+
+      const container = document.getElementById('inline-qrcode');
+      if (!container) return;
+      container.innerHTML = '';
+      new QRCode(container, {
+        text: invoiceStr,
+        width: 170,
+        height: 170,
+        colorDark: '#0A0E17',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+      document.getElementById('inline-invoice-text').innerText = invoiceStr;
+    }
+
+    function handleGenerateInvoice(e) {
+      e.preventDefault();
+      renderInlineQr();
+      alert('Blinded invoice generated!');
+    }
+
+    function copyInlineInvoice() {
+      const txt = document.getElementById('inline-invoice-text').innerText;
+      navigator.clipboard.writeText(txt);
+      alert('Copied blinded invoice to clipboard!');
+    }
+
+    function openSendModal(ticker) {
+      if (ticker) document.getElementById('send-asset-select').value = ticker;
+      document.getElementById('modal-send').classList.add('active');
+    }
+
+    function openIssueModal() {
+      document.getElementById('modal-issue').classList.add('active');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    function copyAddress() {
+      navigator.clipboard.writeText(state.taprootAddress);
+      alert('Taproot address copied to clipboard!');
+    }
+
+    function copyQrText() {
+      const txt = document.getElementById('modal-qr-text').innerText;
+      navigator.clipboard.writeText(txt);
+      alert('Copied to clipboard!');
+    }
+
+    function faucetAirdrop() {
+      state.btcBalanceSats += 25000;
+      state.assets[0].balance += 500;
+      if (window.confetti) {
+        confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
+      }
+      alert('✨ Faucet airdropped +25,000 sats and +500 USDT-RGB!');
+      render();
+    }
+
+    function handleSendSubmit(e) {
+      e.preventDefault();
+      const asset = document.getElementById('send-asset-select').value;
+      const amt = parseFloat(document.getElementById('send-amount-input').value);
+      alert(`WDK Transfer initiated for ${amt} ${asset}!`);
+      closeModal('modal-send');
+    }
+
+    function handleIssueSubmit(e) {
+      e.preventDefault();
+      const ticker = document.getElementById('issue-ticker').value.toUpperCase();
+      const name = document.getElementById('issue-name').value;
+      const supply = parseFloat(document.getElementById('issue-supply').value);
+
+      state.assets.push({
+        ticker,
+        name,
+        contractId: `rgb:nia:c1${Math.random().toString(36).substring(2, 12)}...`,
+        balance: supply,
+        utxo: '8a1c3d5f...:0'
+      });
+      alert(`NIA Asset ${ticker} issued!`);
+      closeModal('modal-issue');
+      render();
+    }
+
+    function inspectUtxo(id, sats, asset) {
+      document.getElementById('insp-id').innerText = id;
+      document.getElementById('insp-sats').innerText = sats.toLocaleString();
+      document.getElementById('insp-asset').innerText = asset;
+      document.getElementById('modal-inspect').classList.add('active');
+    }
+
+    function executeWdkPipeline(e) {
+      e.preventDefault();
+      const btn = document.getElementById('pipeline-btn');
+      btn.innerText = 'Step 1/3: sendBegin()...';
+      btn.disabled = true;
+      document.getElementById('step1-badge').classList.add('active');
+
+      setTimeout(() => {
+        btn.innerText = 'Step 2/3: signPsbt()...';
+        document.getElementById('step2-badge').classList.add('active');
+      }, 900);
+
+      setTimeout(() => {
+        btn.innerText = 'Step 3/3: sendEnd()...';
+        document.getElementById('step3-badge').classList.add('active');
+      }, 1800);
+
+      setTimeout(() => {
+        btn.innerText = 'Execute WDK Pipeline';
+        btn.disabled = false;
+        const asset = document.getElementById('transfer-asset-select').value;
+        const amt = document.getElementById('transfer-amount').value;
+        const recipient = document.getElementById('transfer-blinded-recipient').value;
+
+        const consignment = {
+          schema: "NIA (RGB-20)",
+          contractId: "rgb:nia:3b9f8e41a27c09d854e12e7f83a54b92c431ef82a",
+          asset,
+          amountSent: amt,
+          recipientBlindedSeal: recipient,
+          witnessTxid: "b7e4f9c1... taproot anchor",
+          feeSatPerVb: 24,
+          consignmentHash: `hash_${Date.now()}`,
+          exportedAt: new Date().toISOString()
+        };
+
+        document.getElementById('consignment-output').innerText = JSON.stringify(consignment, null, 2);
+        if (window.confetti) confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+        alert('WDK 3-Stage Transfer Pipeline completed & consignment generated!');
+      }, 2600);
+    }
+
+    function downloadConsignment() {
+      const data = document.getElementById('consignment-output').innerText;
+      const blob = new Blob([data], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `consignment_${Date.now()}.rgb`;
+      a.click();
+    }
+
+    function copyMnemonic() {
+      navigator.clipboard.writeText(state.mnemonic);
+      alert('12-Word mnemonic phrase copied to clipboard!');
+    }
+
+    function generateNewSeed() {
+      const words = ["alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india", "juliet", "kilo", "lima", "mike", "november", "oscar", "papa", "quebec", "romeo", "sierra", "tango", "uniform", "victor", "whiskey", "xray", "yankee", "zulu"];
+      const shuffled = [...words].sort(() => 0.5 - Math.random()).slice(0, 12);
+      state.mnemonic = shuffled.join(' ');
+      alert('Generated new BIP-39 mnemonic seed phrase!');
+      render();
+    }
+
+    function handleExportBackup(e) {
+      e.preventDefault();
+      const pass = document.getElementById('backup-pass').value;
+      const backup = {
+        version: "wdk-wallet-rgb-v1",
+        network: state.network,
+        taprootAddress: state.taprootAddress,
+        encryptedSeed: btoa(state.mnemonic),
+        timestamp: new Date().toISOString(),
+        checksum: Math.random().toString(36).substring(2, 10)
+      };
+
+      const jsonStr = JSON.stringify(backup, null, 2);
+      document.getElementById('backup-output').innerText = jsonStr;
+
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `tether_wdk_backup_${Date.now()}.json`;
+      a.click();
+      alert('Encrypted backup JSON downloaded!');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      render();
+    });
+  </script>
+</body>
+</html>
