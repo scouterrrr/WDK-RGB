@@ -135,7 +135,7 @@ export const SMOKE_PRESETS: SmokePreset[] = [
     name: 'Pastel Dream',
     colors: ['#FDE2E4', '#E2ECE9', '#BEE1E6', '#DFE7FD', '#CDDAFD'],
     particleMode: 'cloud',
-    description: 'Fluffy pastel clouds inspired by the Funky Buddies ribbon & stars',
+    description: 'Fluffy pastel clouds inspired by the Tether WDK ribbon & stars',
   },
   {
     id: 'midnight_fog',

@@ -27,7 +27,7 @@ export const OpenSeaSection: React.FC = () => {
                   <Shield className="w-3 h-3" /> Verified Smart Contract
                 </span>
               </div>
-              <h3 className="font-['Silkscreen'] text-2xl lg:text-3xl text-white mb-3">
+              <h3 className="text-2xl lg:text-3xl font-bold text-white mb-3 tracking-tight">
                 Trade on OpenSea
               </h3>
               <p className="text-sm text-[#c9c2e0] leading-relaxed">

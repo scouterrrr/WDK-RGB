@@ -124,14 +124,14 @@ export const FCFSSpotSection: React.FC<FCFSSpotSectionProps> = ({ onEntrySaved, 
         
         {/* Header */}
         <div className="text-center max-w-xl mx-auto mb-12">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-[#0c3a28] text-[#77E0B0] text-xs font-['Silkscreen'] tracking-wider mb-4 shadow-sm">
-            FCFS SPOT
+          <span className="inline-block px-4 py-1.5 rounded-full bg-[#0c3a28] text-[#77E0B0] text-xs font-bold uppercase tracking-wider mb-4 shadow-sm">
+            FCFS Whitelist
           </span>
-          <h2 className="font-['Silkscreen'] text-3xl sm:text-4xl text-[#0c3a28] mb-3">
-            Grab Your FCFS Spot
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0c3a28] mb-3 tracking-tight">
+            Grab Your Whitelist Spot
           </h2>
           <p className="text-sm sm:text-base text-[#0c3a28]/85 leading-relaxed font-medium">
-            First come, first served. Limited allocation for the 1,999 Robinhood Chain mint. Every section below is mandatory and strictly verified.
+            First come, first served. Limited allocation for the 1,999 Tether WDK RGB Wallet deployment. Every section below is mandatory and strictly verified.
           </p>
         </div>
 
@@ -147,13 +147,13 @@ export const FCFSSpotSection: React.FC<FCFSSpotSectionProps> = ({ onEntrySaved, 
                   Mandatory Social Verification Task
                 </h4>
                 <p className="text-xs text-[#0c3a28]/80 leading-relaxed mt-0.5">
-                  Like, comment, and retweet the official launch post, then paste your retweet link below.
+                  Like, comment, and retweet the official Tether WDK RGB Wallet launch post, then paste your retweet link below.
                 </p>
               </div>
             </div>
 
             <a
-              href="https://x.com/funkybuddies/status/2094660203392475362"
+              href="https://x.com/tether_to"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0c3a28] text-[#77E0B0] font-bold text-xs hover:bg-[#141225] transition-all shrink-0"
@@ -177,11 +177,11 @@ export const FCFSSpotSection: React.FC<FCFSSpotSectionProps> = ({ onEntrySaved, 
               <div className="w-16 h-16 rounded-full bg-[#0c3a28] text-[#77E0B0] flex items-center justify-center mx-auto mb-5">
                 <CheckCircle className="w-8 h-8" />
               </div>
-              <h3 className="font-['Silkscreen'] text-2xl text-[#0c3a28] mb-2">
+              <h3 className="text-2xl font-extrabold text-[#0c3a28] mb-2 tracking-tight">
                 FCFS Spot Registered!
               </h3>
               <p className="text-sm text-[#0c3a28]/80 max-w-md mx-auto mb-6">
-                Your entry has been securely saved to the whitelist queue. Keep your wallet funded on Robinhood Chain for the 07 September mint.
+                Your entry has been securely saved to the whitelist queue. Keep your wallet ready for the Deploy Tether WDK RGB Wallet allocation.
               </p>
               
               <div className="bg-[#e4f7ed] rounded-xl p-4 max-w-md mx-auto text-left font-mono text-xs space-y-2 border border-[#0c3a28]/20 mb-8">
@@ -210,18 +210,18 @@ export const FCFSSpotSection: React.FC<FCFSSpotSectionProps> = ({ onEntrySaved, 
               
               {/* Field 1: X Handle */}
               <div>
-                <label className="block text-xs font-['Silkscreen'] uppercase tracking-wider text-[#0c3a28] mb-2">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#0c3a28] mb-2">
                   1. Your X (Twitter) Username <span className="text-red-500">*</span>
                 </label>
                 <div className="relative flex rounded-xl border-2 border-[#0c3a28] overflow-hidden bg-white focus-within:ring-2 focus-within:ring-[#0c3a28]">
-                  <span className="px-4 py-3.5 bg-[#0c3a28] text-[#77E0B0] font-['Silkscreen'] text-sm flex items-center">
+                  <span className="px-4 py-3.5 bg-[#0c3a28] text-[#77E0B0] font-bold text-sm flex items-center">
                     @
                   </span>
                   <input
                     type="text"
                     value={xHandle}
                     onChange={(e) => handleXChange(e.target.value)}
-                    placeholder="funkybuddies"
+                    placeholder="tether_builder"
                     maxLength={30}
                     className="w-full px-4 py-3 text-sm text-[#0c3a28] font-medium outline-none"
                   />
@@ -239,7 +239,7 @@ export const FCFSSpotSection: React.FC<FCFSSpotSectionProps> = ({ onEntrySaved, 
 
               {/* Field 2: Retweet Link */}
               <div>
-                <label className="block text-xs font-['Silkscreen'] uppercase tracking-wider text-[#0c3a28] mb-2">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#0c3a28] mb-2">
                   2. Link to Your Retweet <span className="text-red-500">*</span>
                 </label>
                 <div className="rounded-xl border-2 border-[#0c3a28] overflow-hidden bg-white focus-within:ring-2 focus-within:ring-[#0c3a28]">
@@ -264,7 +264,7 @@ export const FCFSSpotSection: React.FC<FCFSSpotSectionProps> = ({ onEntrySaved, 
 
               {/* Field 3: EVM Wallet Address */}
               <div>
-                <label className="block text-xs font-['Silkscreen'] uppercase tracking-wider text-[#0c3a28] mb-2">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#0c3a28] mb-2">
                   3. EVM Wallet Address <span className="text-red-500">*</span>
                 </label>
                 <div className="rounded-xl border-2 border-[#0c3a28] overflow-hidden bg-white focus-within:ring-2 focus-within:ring-[#0c3a28]">
@@ -283,7 +283,7 @@ export const FCFSSpotSection: React.FC<FCFSSpotSectionProps> = ({ onEntrySaved, 
                   </p>
                 ) : (
                   <p className="text-[11px] text-[#0c3a28]/60 mt-1">
-                    Robinhood Chain compatible EVM address (Metamask, TrustWallet, etc.).
+                    Robinhood Chain or Ethereum compatible EVM address (Metamask, TrustWallet, etc.).
                   </p>
                 )}
               </div>
@@ -292,9 +292,9 @@ export const FCFSSpotSection: React.FC<FCFSSpotSectionProps> = ({ onEntrySaved, 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 rounded-xl bg-[#0c3a28] text-[#77E0B0] font-['Silkscreen'] text-sm tracking-wider uppercase shadow-lg hover:bg-[#141225] hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="w-full py-4 rounded-xl bg-[#0c3a28] text-[#77E0B0] font-bold text-sm tracking-wider uppercase shadow-lg hover:bg-[#141225] hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
-                {isSubmitting ? 'Verifying Entry...' : 'Submit FCFS Spot'}
+                {isSubmitting ? 'Verifying Entry...' : 'Submit Whitelist Spot'}
                 <Send className="w-4 h-4" />
               </button>
 

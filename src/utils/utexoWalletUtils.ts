@@ -122,14 +122,14 @@ export function createInitialWalletState(mnemonic: string, network: UtexoNetwork
       id: `${txidSeal1}:0`,
       txid: txidSeal1,
       vout: 0,
-      sats: 54000,
+      sats: 2000,
       scriptType: 'p2tr',
       isColored: true,
       rgbAllocations: [
         {
           assetId: 'rgb:nia:3b9f8e41a27c09d854e12e7f83a54b92c431ef82a',
-          ticker: 'USDT-RGB',
-          amount: 1250,
+          ticker: 'USDTRGB',
+          amount: 500,
         },
       ],
       status: 'unspent',
@@ -139,14 +139,14 @@ export function createInitialWalletState(mnemonic: string, network: UtexoNetwork
       id: `${txidSeal2}:1`,
       txid: txidSeal2,
       vout: 1,
-      sats: 120000,
+      sats: 2000,
       scriptType: 'p2tr',
       isColored: true,
       rgbAllocations: [
         {
           assetId: 'rgb:nia:99f7d24ab5c812e9834ba7e44c21df34891e8432a',
-          ticker: 'BUDDY',
-          amount: 1000000,
+          ticker: 'FUNK',
+          amount: 1999,
         },
       ],
       status: 'unspent',
@@ -157,28 +157,28 @@ export function createInitialWalletState(mnemonic: string, network: UtexoNetwork
   const initialAssets: RgbAsset[] = [
     {
       id: 'rgb:nia:3b9f8e41a27c09d854e12e7f83a54b92c431ef82a',
-      ticker: 'USDT-RGB',
-      name: 'Tether USD on RGB',
-      precision: 2,
+      ticker: 'USDTRGB',
+      name: 'Tether USD (RGB)',
+      precision: 6,
       issuedSupply: 1000000,
-      balance: 1250,
+      balance: 500,
       schema: 'NIA',
       genesisTxid: txidSeal1,
       allocatedUtxoId: `${txidSeal1}:0`,
-      description: 'Official Tether USD₮ token issued on Bitcoin RGB Layer 2 protocol via Utexo WDK module.',
+      description: 'Official Tether USD₮ token issued on Bitcoin RGB Layer 2 protocol via Utexo WDK.',
       createdAt: Date.now() - 3600000 * 2,
     },
     {
       id: 'rgb:nia:99f7d24ab5c812e9834ba7e44c21df34891e8432a',
-      ticker: 'BUDDY',
-      name: 'Utexo Protocol Token',
-      precision: 2,
+      ticker: 'WDKRGB',
+      name: 'Deploy Tether WDK RGB Asset',
+      precision: 0,
       issuedSupply: 1000000,
-      balance: 1000000,
+      balance: 10000,
       schema: 'NIA',
       genesisTxid: txidSeal2,
       allocatedUtxoId: `${txidSeal2}:1`,
-      description: 'Native RGB utility token allocated on Bitcoin Taproot single-use seals.',
+      description: 'Native RGB asset token deployed via Tether WDK client-side validation engine.',
       createdAt: Date.now() - 3600000,
     },
   ];
@@ -188,8 +188,8 @@ export function createInitialWalletState(mnemonic: string, network: UtexoNetwork
       id: 'tx_init_1',
       txid: txidSeal1,
       type: 'issuance',
-      assetTicker: 'USDT-RGB',
-      amount: 1250,
+      assetTicker: 'USDTRGB',
+      amount: 500,
       witnessTxFeeSats: 280,
       timestamp: Date.now() - 3600000 * 2,
       status: 'confirmed',
@@ -199,8 +199,8 @@ export function createInitialWalletState(mnemonic: string, network: UtexoNetwork
       id: 'tx_init_2',
       txid: txidSeal2,
       type: 'issuance',
-      assetTicker: 'BUDDY',
-      amount: 1000000,
+      assetTicker: 'FUNK',
+      amount: 1999,
       witnessTxFeeSats: 260,
       timestamp: Date.now() - 3600000,
       status: 'confirmed',
@@ -236,14 +236,8 @@ export function formatSatsToBtc(sats: number): string {
 }
 
 /**
- * Format number with comma separators and optional precision
+ * Format number with comma separators
  */
-export function formatAmount(num: number, precision?: number): string {
-  if (precision !== undefined) {
-    return new Intl.NumberFormat(undefined, {
-      minimumFractionDigits: precision,
-      maximumFractionDigits: precision,
-    }).format(num);
-  }
+export function formatAmount(num: number): string {
   return new Intl.NumberFormat().format(num);
 }

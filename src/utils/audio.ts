@@ -1,4 +1,4 @@
-// Procedural Web Audio API sound synthesizer for Funky Buddies
+// Procedural Web Audio API sound synthesizer for Deploy Tether WDK RGB Wallet
 
 class SoundFX {
   private ctx: AudioContext | null = null;

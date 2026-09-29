@@ -17,11 +17,11 @@ export const BuybackBurnSection: React.FC = () => {
             <Flame className="w-3.5 h-3.5 text-[#FF9FC0] animate-bounce" />
             Guaranteed Floor Protection Covenant
           </div>
-          <h2 className="font-['Silkscreen'] text-2xl sm:text-3xl lg:text-4xl text-[#FFD469] mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#FFD469] mb-4 tracking-tight">
             Floor Protection: 50% Buyback &amp; Burn
           </h2>
           <p className="text-base sm:text-lg text-[#c9c2e0] leading-relaxed">
-            We respect our holders’ capital. If the secondary market floor price drops by <strong>50% or more below the original mint price</strong>, the FUNky Buddies treasury protocol triggers an automatic floor sweep: buying Buddies directly off secondary marketplaces and burning them permanently.
+            We respect our holders’ capital. If the secondary market floor price drops by <strong>50% or more below the original mint price</strong>, the Deploy Tether WDK RGB Wallet treasury protocol triggers an automatic floor sweep: buying units directly off secondary marketplaces and burning them permanently.
           </p>
         </div>
 
@@ -31,7 +31,7 @@ export const BuybackBurnSection: React.FC = () => {
             <div className="w-12 h-12 rounded-xl bg-[#9B87F5]/20 flex items-center justify-center text-[#9B87F5] mb-5">
               <ShieldCheck className="w-6 h-6" />
             </div>
-            <h3 className="font-['Silkscreen'] text-base text-[#FFD469] mb-2">50% Hard Floor Stop</h3>
+            <h3 className="text-base font-bold text-[#FFD469] mb-2 tracking-tight">50% Hard Floor Stop</h3>
             <p className="text-sm text-[#c9c2e0] leading-relaxed">
               If mint price is $40 and secondary listings slide to $20 or less, the buyback engine activates without exception.
             </p>
@@ -41,7 +41,7 @@ export const BuybackBurnSection: React.FC = () => {
             <div className="w-12 h-12 rounded-xl bg-[#FF9FC0]/20 flex items-center justify-center text-[#FF9FC0] mb-5">
               <Flame className="w-6 h-6" />
             </div>
-            <h3 className="font-['Silkscreen'] text-base text-[#FFD469] mb-2">Provable Burn Address</h3>
+            <h3 className="text-base font-bold text-[#FFD469] mb-2 tracking-tight">Provable Burn Address</h3>
             <p className="text-sm text-[#c9c2e0] leading-relaxed">
               Swept NFTs are sent directly to the Robinhood Chain burn address (0x000...dead). They are destroyed forever.
             </p>
@@ -51,7 +51,7 @@ export const BuybackBurnSection: React.FC = () => {
             <div className="w-12 h-12 rounded-xl bg-[#77E0B0]/20 flex items-center justify-center text-[#77E0B0] mb-5">
               <TrendingUp className="w-6 h-6" />
             </div>
-            <h3 className="font-['Silkscreen'] text-base text-[#FFD469] mb-2">Permanent Supply Reduction</h3>
+            <h3 className="text-base font-bold text-[#FFD469] mb-2 tracking-tight">Permanent Supply Reduction</h3>
             <p className="text-sm text-[#c9c2e0] leading-relaxed">
               Total supply drops below 1,999 with every burn cycle, mathematically tightening scarcity for long-term holders.
             </p>
@@ -63,7 +63,7 @@ export const BuybackBurnSection: React.FC = () => {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-[#2c2650] mb-8">
             <div>
               <span className="font-mono text-xs uppercase tracking-widest text-[#9B87F5] font-bold">Concrete Worked Example</span>
-              <h3 className="font-['Silkscreen'] text-xl sm:text-2xl text-[#FFD469] mt-1">
+              <h3 className="text-xl sm:text-2xl font-bold text-[#FFD469] mt-1 tracking-tight">
                 How the Buyback &amp; Burn Executes in Real Life
               </h3>
             </div>
@@ -74,7 +74,7 @@ export const BuybackBurnSection: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="p-5 rounded-xl bg-[#141225]/80 border border-[#2c2650]">
-              <div className="w-7 h-7 rounded-full bg-[#9B87F5] text-[#141225] font-['Silkscreen'] text-xs flex items-center justify-center mb-3">1</div>
+              <div className="w-7 h-7 rounded-full bg-[#9B87F5] text-[#141225] font-bold text-xs flex items-center justify-center mb-3">1</div>
               <h4 className="font-bold text-sm text-[#F6F2FF] mb-1">Minting Phase</h4>
               <p className="text-xs text-[#c9c2e0] leading-relaxed">
                 Collection mints at $40.00. 30% of mint proceeds are locked into the verifiable Protocol Defense Treasury contract.
@@ -82,7 +82,7 @@ export const BuybackBurnSection: React.FC = () => {
             </div>
 
             <div className="p-5 rounded-xl bg-[#141225]/80 border border-[#2c2650]">
-              <div className="w-7 h-7 rounded-full bg-[#9B87F5] text-[#141225] font-['Silkscreen'] text-xs flex items-center justify-center mb-3">2</div>
+              <div className="w-7 h-7 rounded-full bg-[#9B87F5] text-[#141225] font-bold text-xs flex items-center justify-center mb-3">2</div>
               <h4 className="font-bold text-sm text-[#F6F2FF] mb-1">Market Dips &ge; 50%</h4>
               <p className="text-xs text-[#c9c2e0] leading-relaxed">
                 Paper hands list on secondary down to $19.00 (more than 50% below mint fee). The automated trigger fires.
@@ -90,18 +90,18 @@ export const BuybackBurnSection: React.FC = () => {
             </div>
 
             <div className="p-5 rounded-xl bg-[#141225]/80 border border-[#2c2650]">
-              <div className="w-7 h-7 rounded-full bg-[#9B87F5] text-[#141225] font-['Silkscreen'] text-xs flex items-center justify-center mb-3">3</div>
+              <div className="w-7 h-7 rounded-full bg-[#9B87F5] text-[#141225] font-bold text-xs flex items-center justify-center mb-3">3</div>
               <h4 className="font-bold text-sm text-[#F6F2FF] mb-1">Treasury Sweeps Floor</h4>
               <p className="text-xs text-[#c9c2e0] leading-relaxed">
-                Treasury immediately purchases the cheapest 85 Buddies across OpenSea, instantly clearing out distressed sellers.
+                Treasury immediately purchases the cheapest 85 items across OpenSea, instantly clearing out distressed sellers.
               </p>
             </div>
 
             <div className="p-5 rounded-xl bg-[#141225]/80 border border-[#2c2650]">
-              <div className="w-7 h-7 rounded-full bg-[#77E0B0] text-[#141225] font-['Silkscreen'] text-xs flex items-center justify-center mb-3">4</div>
+              <div className="w-7 h-7 rounded-full bg-[#77E0B0] text-[#141225] font-bold text-xs flex items-center justify-center mb-3">4</div>
               <h4 className="font-bold text-sm text-[#77E0B0] mb-1">Tokens Burned</h4>
               <p className="text-xs text-[#c9c2e0] leading-relaxed">
-                All 85 swept Buddies are burned. Total supply falls from 1,999 to 1,914, resetting the floor above the mint benchmark.
+                All 85 swept items are burned. Total supply falls from 1,999 to 1,914, resetting the floor above the mint benchmark.
               </p>
             </div>
           </div>
@@ -111,7 +111,7 @@ export const BuybackBurnSection: React.FC = () => {
         <div className="bg-[#1c1932] border-2 border-[#2c2650] rounded-2xl p-6 sm:p-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
-              <h4 className="font-['Silkscreen'] text-base text-[#FFD469]">
+              <h4 className="text-base font-bold text-[#FFD469] tracking-tight">
                 Interactive Floor Price Simulator
               </h4>
               <p className="text-xs text-[#c9c2e0]">

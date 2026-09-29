@@ -113,12 +113,12 @@ export const BuddyCustomizer: React.FC<BuddyCustomizerProps> = ({
         {/* Header */}
         <div className="flex items-center gap-2 mb-1">
           <Wand2 className="w-5 h-5 text-purple-600" />
-          <h2 className="font-pixel text-xl font-black">
-            BUDDY CUSTOMIZER
+          <h2 className="text-xl font-bold tracking-tight">
+            CHARACTER CUSTOMIZER
           </h2>
         </div>
-        <p className="text-xs text-neutral-600 mb-6 font-semibold">
-          Design your one-of-a-kind Funky Buddy & launch an exclusive Smoke Reveal!
+        <p className="text-xs text-neutral-600 mb-6 font-medium">
+          Design your one-of-a-kind Genesis Character &amp; launch an exclusive Reveal!
         </p>
 
         {/* Content Layout: Left Live Preview, Right Controls */}

@@ -28,12 +28,12 @@ export const CollectionShelf: React.FC<CollectionShelfProps> = ({
           <div>
             <div className="flex items-center gap-2">
               <Trophy className="w-5 h-5 text-amber-500" />
-              <h2 className="font-pixel text-lg sm:text-xl font-black">
-                COLLECTOR'S SHELF
+              <h2 className="text-lg sm:text-xl font-extrabold tracking-tight">
+                COLLECTOR&apos;S SHELF
               </h2>
             </div>
             <p className="text-xs text-neutral-600 mt-0.5">
-              Series 01 Blind Box Roster • Discover all 6 Funky Buddies
+              Series 01 Blind Box Roster • Discover all 6 Genesis Characters
             </p>
           </div>
 

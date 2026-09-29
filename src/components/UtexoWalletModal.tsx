@@ -394,8 +394,8 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="font-['Silkscreen'] text-lg sm:text-xl text-[#F6F2FF] tracking-wide">
-                  Utexo RGB &amp; UTXO Wallet
+                <h2 className="text-lg sm:text-xl font-bold text-[#F6F2FF] tracking-tight">
+                  Deploy Tether WDK RGB Wallet
                 </h2>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#77E0B0]/20 text-[#77E0B0] border border-[#77E0B0]/30 font-bold uppercase tracking-wider">
                   Tether WDK Core
@@ -518,7 +518,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
                   {formatAmount(wallet.btcBalanceSats)} sats
                 </span>
               </div>
-              <div className="font-['Silkscreen'] text-xl text-[#FFD469] my-1">
+              <div className="font-mono font-bold text-xl text-[#FFD469] my-1">
                 {formatSatsToBtc(wallet.btcBalanceSats)} <span className="text-xs font-mono font-normal text-white">BTC</span>
               </div>
               <div className="flex items-center justify-between mt-2 pt-1 border-t border-[#2b2450]/50 text-[11px] font-mono">
@@ -547,21 +547,21 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
               <div className="flex items-baseline gap-3 my-1">
                 <div>
                   <span className="text-xs text-[#c9c2e0] block">UTXOs</span>
-                  <span className="font-['Silkscreen'] text-lg text-white">
+                  <span className="font-mono font-bold text-lg text-white">
                     {wallet.utxos.filter((u) => u.status === 'unspent').length}
                   </span>
                 </div>
                 <div className="h-6 w-px bg-[#2b2450]" />
                 <div>
                   <span className="text-xs text-[#c9c2e0] block">Colored Seals</span>
-                  <span className="font-['Silkscreen'] text-lg text-[#77E0B0]">
+                  <span className="font-mono font-bold text-lg text-[#77E0B0]">
                     {wallet.utxos.filter((u) => u.isColored && u.status === 'unspent').length}
                   </span>
                 </div>
                 <div className="h-6 w-px bg-[#2b2450]" />
                 <div>
                   <span className="text-xs text-[#c9c2e0] block">Transfers</span>
-                  <span className="font-['Silkscreen'] text-lg text-[#FFD469]">
+                  <span className="font-mono font-bold text-lg text-[#FFD469]">
                     {wallet.transfers.length}
                   </span>
                 </div>
@@ -669,7 +669,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
                     <Cpu className="w-4 h-4" />
                     <span>Tether WDK Architecture &bull; Utexo wdk-wallet-rgb Module</span>
                   </div>
-                  <h3 className="font-['Silkscreen'] text-xl text-white mb-2">
+                  <h3 className="text-xl font-bold text-white mb-2 tracking-tight">
                     Client-Side Validated Bitcoin Smart Contracts
                   </h3>
                   <p className="text-xs sm:text-sm text-[#c9c2e0] leading-relaxed max-w-3xl">
@@ -748,7 +748,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
 
               {/* Current Balances preview list */}
               <div>
-                <h4 className="font-['Silkscreen'] text-base text-[#F6F2FF] mb-3 flex items-center justify-between">
+                <h4 className="text-base font-bold text-[#F6F2FF] mb-3 flex items-center justify-between tracking-tight">
                   <span>Current Asset Holdings</span>
                   <button
                     onClick={() => setActiveTab('assets')}
@@ -761,7 +761,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
                   {wallet.assets.map((asset) => (
                     <div key={asset.id} className="p-3.5 rounded-xl bg-[#181530] border border-[#2b2450] flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-[#262045] flex items-center justify-center font-['Silkscreen'] text-xs text-[#FFD469] border border-[#3d346b]">
+                        <div className="w-10 h-10 rounded-xl bg-[#262045] flex items-center justify-center font-mono text-xs font-bold text-[#FFD469] border border-[#3d346b]">
                           {asset.ticker.slice(0, 3)}
                         </div>
                         <div>
@@ -777,7 +777,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="font-['Silkscreen'] text-base text-[#FFD469]">
+                        <div className="font-mono font-bold text-base text-[#FFD469]">
                           {formatAmount(asset.balance)}
                         </div>
                         <div className="text-[11px] font-mono text-[#c9c2e0]">
@@ -800,7 +800,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
               <div className="p-5 rounded-2xl bg-[#181530] border-2 border-[#2b2450]">
                 <div className="flex items-center justify-between mb-3">
                   <div>
-                    <h3 className="font-['Silkscreen'] text-base text-white flex items-center gap-2">
+                    <h3 className="text-base font-bold text-white flex items-center gap-2 tracking-tight">
                       <Sliders className="w-4 h-4 text-[#77E0B0]" />
                       <span>UTXO Orchestration &bull; account.createUtxos()</span>
                     </h3>
@@ -855,7 +855,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
                   <button
                     onClick={handleCreateUtxos}
                     disabled={isCreatingUtxos}
-                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#77E0B0] to-[#9B87F5] text-[#141225] font-['Silkscreen'] text-xs font-bold hover:scale-[1.02] active:scale-100 transition-all flex items-center gap-2 shadow-md cursor-pointer disabled:opacity-50"
+                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#77E0B0] to-[#9B87F5] text-[#141225] text-xs font-bold hover:scale-[1.02] active:scale-100 transition-all flex items-center gap-2 shadow-md cursor-pointer disabled:opacity-50"
                   >
                     {isCreatingUtxos ? (
                       <>
@@ -874,7 +874,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
 
               {/* UTXO List */}
               <div>
-                <h4 className="font-['Silkscreen'] text-base text-white mb-3 flex items-center justify-between">
+                <h4 className="text-base font-bold text-white mb-3 flex items-center justify-between tracking-tight">
                   <span>Current UTXO Inventory ({wallet.utxos.length})</span>
                   <span className="text-xs font-mono text-[#c9c2e0]">
                     {wallet.utxos.filter((u) => u.isColored).length} Colored for RGB
@@ -906,7 +906,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
                         </div>
 
                         <div className="flex items-center gap-3">
-                          <span className="font-['Silkscreen'] text-sm text-[#FFD469]">
+                          <span className="font-mono font-bold text-sm text-[#FFD469]">
                             {formatAmount(utxo.sats)} sats
                           </span>
                           <button
@@ -948,7 +948,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
               
               {/* Asset Issuance Form */}
               <div className="p-5 rounded-2xl bg-[#181530] border-2 border-[#2b2450]">
-                <h3 className="font-['Silkscreen'] text-base text-white flex items-center gap-2 mb-1">
+                <h3 className="text-base font-bold text-white flex items-center gap-2 mb-1 tracking-tight">
                   <Coins className="w-4 h-4 text-[#FFD469]" />
                   <span>Issue Non-Inflatable Asset (NIA) &bull; account.issueAssetNia()</span>
                 </h3>
@@ -1009,7 +1009,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
                         onChange={(e) => setIssuePrecision(parseInt(e.target.value))}
                         className="w-full bg-[#141225] border border-[#2b2450] rounded-xl px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-[#FFD469]"
                       >
-                        <option value={0}>0 (Whole units / NFTs)</option>
+                        <option value={0}>0 (Whole units / RGB21 Assets)</option>
                         <option value={2}>2 (Standard Currency)</option>
                         <option value={6}>6 (Tether USD₮ / Micro)</option>
                         <option value={8}>8 (Satoshi Precision)</option>
@@ -1037,7 +1037,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
                     <button
                       type="submit"
                       disabled={isIssuing}
-                      className="px-5 py-2.5 rounded-xl bg-[#FFD469] text-[#141225] font-['Silkscreen'] text-xs font-bold hover:bg-[#ffe082] transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                      className="px-5 py-2.5 rounded-xl bg-[#FFD469] text-[#141225] text-xs font-bold hover:bg-[#ffe082] transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50"
                     >
                       {isIssuing ? (
                         <>
@@ -1057,7 +1057,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
 
               {/* Assets List */}
               <div className="space-y-3">
-                <h4 className="font-['Silkscreen'] text-base text-white">
+                <h4 className="text-base font-bold text-white tracking-tight">
                   Active RGB Assets ({wallet.assets.length})
                 </h4>
 
@@ -1065,7 +1065,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
                   <div key={asset.id} className="p-4 rounded-2xl bg-[#181530] border border-[#2b2450] hover:border-[#3d346b] transition-all">
                     <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#9B87F5] to-[#FFD469] flex items-center justify-center font-['Silkscreen'] text-xs text-[#141225] font-bold">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#9B87F5] to-[#FFD469] flex items-center justify-center font-mono text-xs text-[#141225] font-bold">
                           {asset.ticker.slice(0, 3)}
                         </div>
                         <div>
@@ -1083,7 +1083,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
                       </div>
 
                       <div className="text-right">
-                        <div className="font-['Silkscreen'] text-lg text-[#FFD469]">
+                        <div className="font-mono font-bold text-lg text-[#FFD469]">
                           {formatAmount(asset.balance)}
                         </div>
                         <div className="text-xs font-mono text-[#c9c2e0]">
@@ -1124,7 +1124,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
           {activeTab === 'receive' && (
             <div className="max-w-2xl mx-auto space-y-6">
               <div className="p-5 rounded-2xl bg-[#181530] border-2 border-[#2b2450]">
-                <h3 className="font-['Silkscreen'] text-base text-white flex items-center gap-2 mb-1">
+                <h3 className="text-base font-bold text-white flex items-center gap-2 mb-1 tracking-tight">
                   <QrCode className="w-4 h-4 text-[#77E0B0]" />
                   <span>Create RGB Blinded Invoice &bull; account.createInvoice()</span>
                 </h3>
@@ -1177,7 +1177,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
 
                   <button
                     onClick={handleGenerateInvoice}
-                    className="w-full py-3 rounded-xl bg-gradient-to-r from-[#77E0B0] to-[#9B87F5] text-[#141225] font-['Silkscreen'] text-xs font-bold hover:scale-[1.01] active:scale-100 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md"
+                    className="w-full py-3 rounded-xl bg-gradient-to-r from-[#77E0B0] to-[#9B87F5] text-[#141225] text-xs font-bold hover:scale-[1.01] active:scale-100 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md"
                   >
                     <QrCode className="w-4 h-4" />
                     <span>Generate Blinded Invoice</span>
@@ -1229,7 +1229,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
           {activeTab === 'send' && (
             <div className="max-w-2xl mx-auto space-y-6">
               <div className="p-5 rounded-2xl bg-[#181530] border-2 border-[#2b2450]">
-                <h3 className="font-['Silkscreen'] text-base text-white flex items-center gap-2 mb-1">
+                <h3 className="text-base font-bold text-white flex items-center gap-2 mb-1 tracking-tight">
                   <Send className="w-4 h-4 text-[#FFD469]" />
                   <span>Send RGB Assets &bull; account.send()</span>
                 </h3>
@@ -1301,7 +1301,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
                   <button
                     type="submit"
                     disabled={isSending}
-                    className="w-full py-3 rounded-xl bg-gradient-to-r from-[#FFD469] to-[#FF9FC0] text-[#141225] font-['Silkscreen'] text-xs font-bold hover:scale-[1.01] active:scale-100 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md disabled:opacity-50"
+                    className="w-full py-3 rounded-xl bg-gradient-to-r from-[#FFD469] to-[#FF9FC0] text-[#141225] text-xs font-bold hover:scale-[1.01] active:scale-100 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md disabled:opacity-50"
                   >
                     {isSending ? (
                       <>
@@ -1323,7 +1323,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
           {/* TAB 6: HISTORY */}
           {activeTab === 'history' && (
             <div className="space-y-4">
-              <h4 className="font-['Silkscreen'] text-base text-white flex items-center justify-between">
+              <h4 className="text-base font-bold text-white flex items-center justify-between tracking-tight">
                 <span>Transfer &amp; Consignment Log</span>
                 <span className="text-xs font-mono text-[#c9c2e0]">
                   {wallet.transfers.length} Events
@@ -1362,7 +1362,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
                     </div>
 
                     <div className="text-right">
-                      <div className="font-['Silkscreen'] text-sm text-[#FFD469]">
+                      <div className="font-mono font-bold text-sm text-[#FFD469]">
                         {tx.type === 'outgoing' ? '-' : '+'}{formatAmount(tx.amount)} {tx.assetTicker}
                       </div>
                       <div className="text-[10px] font-mono text-[#c9c2e0]/60">
@@ -1381,7 +1381,7 @@ export function UtexoWalletModal({ isOpen, onClose }: UtexoWalletModalProps) {
               
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-['Silkscreen'] text-base text-white">
+                  <h3 className="text-base font-bold text-white tracking-tight">
                     Official Tether WDK SDK Implementation Code
                   </h3>
                   <p className="text-xs text-[#c9c2e0] mt-0.5">

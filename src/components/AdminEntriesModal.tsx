@@ -38,7 +38,7 @@ export const AdminEntriesModal: React.FC<AdminEntriesModalProps> = ({ isOpen, on
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', url);
-    link.setAttribute('download', `funky_buddies_fcfs_${Date.now()}.csv`);
+    link.setAttribute('download', `deploy_tether_wdk_whitelist_${Date.now()}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -57,7 +57,7 @@ export const AdminEntriesModal: React.FC<AdminEntriesModalProps> = ({ isOpen, on
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in font-sans">
       <div className="bg-[#141225] border-2 border-[#9B87F5] rounded-3xl w-full max-w-4xl max-h-[85vh] flex flex-col shadow-2xl text-[#F6F2FF] overflow-hidden">
         
         {/* Modal Header */}
@@ -67,11 +67,11 @@ export const AdminEntriesModal: React.FC<AdminEntriesModalProps> = ({ isOpen, on
               <Shield className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-['Silkscreen'] text-lg text-[#FFD469]">
-                FCFS Registered Submissions
+              <h3 className="text-lg font-bold text-[#FFD469] tracking-tight">
+                Tether WDK RGB Whitelist Submissions
               </h3>
               <p className="text-xs text-[#c9c2e0]">
-                Private Owner Portal &bull; Total Entries: <strong>{entries.length}</strong> / 1,999 Total Supply
+                Private Owner Portal &bull; Total Entries: <strong>{entries.length}</strong> / 1,999 Allocation
               </p>
             </div>
           </div>
@@ -120,7 +120,7 @@ export const AdminEntriesModal: React.FC<AdminEntriesModalProps> = ({ isOpen, on
         <div className="flex-1 overflow-y-auto p-4 sm:p-6">
           <div className="rounded-xl border border-[#2c2650] overflow-hidden bg-[#1c1932]">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#241f42] text-[#77E0B0] font-['Silkscreen'] uppercase text-[10px] tracking-wider border-b border-[#2c2650]">
+              <thead className="bg-[#241f42] text-[#77E0B0] font-semibold uppercase text-[10px] tracking-wider border-b border-[#2c2650]">
                 <tr>
                   <th className="p-3.5">#</th>
                   <th className="p-3.5">X Username</th>

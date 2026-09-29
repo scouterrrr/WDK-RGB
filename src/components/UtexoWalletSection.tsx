@@ -33,8 +33,8 @@ export function UtexoWalletSection({ onOpenWallet }: UtexoWalletSectionProps) {
               <Cpu className="w-3.5 h-3.5" />
               <span>Tether WDK &bull; @utexo/wdk-wallet-rgb</span>
             </div>
-            <h2 className="font-['Silkscreen'] text-2xl sm:text-4xl text-[#F6F2FF] tracking-tight">
-              Utexo RGB &amp; UTXO Wallet
+            <h2 className="text-2xl sm:text-4xl font-bold text-[#F6F2FF] tracking-tight">
+              Tether WDK RGB &amp; UTXO Wallet
             </h2>
             <p className="text-sm sm:text-base text-[#c9c2e0] mt-2 max-w-2xl leading-relaxed">
               Full-featured implementation of Tether&apos;s Wallet Development Kit (WDK) and Utexo&apos;s RGB module. Manage Bitcoin UTXOs, derive Taproot accounts, allocate single-use seals, and issue confidential RGB assets.
@@ -44,10 +44,10 @@ export function UtexoWalletSection({ onOpenWallet }: UtexoWalletSectionProps) {
           <div className="flex items-center gap-3">
             <button
               onClick={onOpenWallet}
-              className="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#77E0B0] via-[#9B87F5] to-[#FFD469] text-[#141225] font-['Silkscreen'] text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center gap-2 cursor-pointer"
+              className="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#77E0B0] via-[#9B87F5] to-[#FFD469] text-[#141225] text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center gap-2 cursor-pointer"
             >
               <Wallet className="w-4 h-4" />
-              <span>Launch Utexo Wallet</span>
+              <span>Launch WDK Wallet</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -62,7 +62,7 @@ export function UtexoWalletSection({ onOpenWallet }: UtexoWalletSectionProps) {
               <div className="w-12 h-12 rounded-xl bg-[#77E0B0]/10 border border-[#77E0B0]/30 flex items-center justify-center text-[#77E0B0] mb-4 group-hover:scale-110 transition-transform">
                 <ShieldCheck className="w-6 h-6" />
               </div>
-              <h3 className="font-['Silkscreen'] text-base text-[#F6F2FF] mb-2">
+              <h3 className="text-base font-bold text-[#F6F2FF] mb-2 tracking-tight">
                 BIP-86 Taproot
               </h3>
               <p className="text-xs text-[#c9c2e0] leading-relaxed">
@@ -80,7 +80,7 @@ export function UtexoWalletSection({ onOpenWallet }: UtexoWalletSectionProps) {
               <div className="w-12 h-12 rounded-xl bg-[#FFD469]/10 border border-[#FFD469]/30 flex items-center justify-center text-[#FFD469] mb-4 group-hover:scale-110 transition-transform">
                 <Layers className="w-6 h-6" />
               </div>
-              <h3 className="font-['Silkscreen'] text-base text-[#F6F2FF] mb-2">
+              <h3 className="text-base font-bold text-[#F6F2FF] mb-2 tracking-tight">
                 Colored UTXO Seals
               </h3>
               <p className="text-xs text-[#c9c2e0] leading-relaxed">
@@ -98,7 +98,7 @@ export function UtexoWalletSection({ onOpenWallet }: UtexoWalletSectionProps) {
               <div className="w-12 h-12 rounded-xl bg-[#9B87F5]/10 border border-[#9B87F5]/30 flex items-center justify-center text-[#9B87F5] mb-4 group-hover:scale-110 transition-transform">
                 <Coins className="w-6 h-6" />
               </div>
-              <h3 className="font-['Silkscreen'] text-base text-[#F6F2FF] mb-2">
+              <h3 className="text-base font-bold text-[#F6F2FF] mb-2 tracking-tight">
                 NIA Asset Issuance
               </h3>
               <p className="text-xs text-[#c9c2e0] leading-relaxed">
@@ -116,7 +116,7 @@ export function UtexoWalletSection({ onOpenWallet }: UtexoWalletSectionProps) {
               <div className="w-12 h-12 rounded-xl bg-[#FF9FC0]/10 border border-[#FF9FC0]/30 flex items-center justify-center text-[#FF9FC0] mb-4 group-hover:scale-110 transition-transform">
                 <QrCode className="w-6 h-6" />
               </div>
-              <h3 className="font-['Silkscreen'] text-base text-[#F6F2FF] mb-2">
+              <h3 className="text-base font-bold text-[#F6F2FF] mb-2 tracking-tight">
                 Blinded Invoices
               </h3>
               <p className="text-xs text-[#c9c2e0] leading-relaxed">
@@ -139,7 +139,7 @@ export function UtexoWalletSection({ onOpenWallet }: UtexoWalletSectionProps) {
                 Interactive Testnet4 / Mainnet Sandbox Live
               </span>
             </div>
-            <h4 className="font-['Silkscreen'] text-xl sm:text-2xl text-white">
+            <h4 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
               Test UTXO Coloring &amp; RGB Smart Contracts Now
             </h4>
             <p className="text-xs sm:text-sm text-[#c9c2e0] max-w-xl">
@@ -150,10 +150,10 @@ export function UtexoWalletSection({ onOpenWallet }: UtexoWalletSectionProps) {
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={onOpenWallet}
-              className="px-6 py-3.5 rounded-xl bg-[#77E0B0] hover:bg-[#86f0c3] text-[#141225] font-['Silkscreen'] text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
+              className="px-6 py-3.5 rounded-xl bg-[#77E0B0] hover:bg-[#86f0c3] text-[#141225] text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
             >
               <Wallet className="w-4 h-4" />
-              <span>Open Utexo Wallet Modal</span>
+              <span>Open WDK Wallet Modal</span>
             </button>
 
             <a

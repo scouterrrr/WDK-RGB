@@ -22,6 +22,8 @@ export interface FunkyBuddy {
   boxArtworkIndex: number;
 }
 
+export type Buddy = FunkyBuddy;
+
 export interface DiscoveredBuddy {
   buddy: FunkyBuddy;
   unboxedAt: number;

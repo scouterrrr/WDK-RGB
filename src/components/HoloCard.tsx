@@ -80,7 +80,7 @@ export const HoloCard: React.FC<HoloCardProps> = ({
 
   const handleShare = () => {
     sound.playClick();
-    const text = `🎉 I just unboxed ${buddy.name} (${buddy.title}) in Funky Buddies Smoke Reveal! Rarity: ${buddy.rarity.toUpperCase()} | Vibe: ${buddy.vibeScore}/100 💖`;
+    const text = `🎉 I just unboxed ${buddy.name} (${buddy.title}) in Deploy Tether WDK RGB Wallet Reveal! Rarity: ${buddy.rarity.toUpperCase()} | Vibe: ${buddy.vibeScore}/100 💖`;
     navigator.clipboard?.writeText(text);
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 2000);
@@ -122,8 +122,8 @@ export const HoloCard: React.FC<HoloCardProps> = ({
           {/* Card Header */}
           <div className="p-3.5 border-b-2 border-[#1F1B18] bg-[#F3ECE0] flex items-center justify-between relative z-10">
             <div className="flex items-center gap-1.5">
-              <span className="font-pixel text-xs text-[#1F1B18] font-bold">
-                FUNKY BUDDIES
+              <span className="font-mono text-xs text-[#1F1B18] font-bold tracking-tight">
+                TETHER WDK RGB
               </span>
               <span className="text-[10px] text-neutral-500 font-mono">
                 SERIES 01
@@ -131,7 +131,7 @@ export const HoloCard: React.FC<HoloCardProps> = ({
             </div>
             <div className="flex items-center gap-1">
               <span
-                className={`font-pixel text-[9px] px-2 py-0.5 rounded-full border shadow-xs ${badge.bg} ${badge.border}`}
+                className={`font-mono font-bold text-[9px] px-2 py-0.5 rounded-full border shadow-xs ${badge.bg} ${badge.border}`}
               >
                 {badge.label}
               </span>

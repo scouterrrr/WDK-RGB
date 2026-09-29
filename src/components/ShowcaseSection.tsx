@@ -10,11 +10,11 @@ export const ShowcaseSection: React.FC = () => {
           <div className="inline-block px-3 py-1 rounded-full bg-[#0e2f45] text-[#7EC8F0] text-xs font-mono font-bold tracking-widest uppercase mb-3">
             Hand-Crafted Roster
           </div>
-          <h2 className="font-['Silkscreen'] text-2xl sm:text-3xl lg:text-4xl text-[#0e2f45] mb-4">
-            Meet the Buddies
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0e2f45] mb-4 tracking-tight">
+            Genesis Roster &amp; Characters
           </h2>
           <p className="text-base text-[#0e2f45]/85 leading-relaxed">
-            Streetwear, cowboy sherpas, cyberpunk headsets, varsity gear and sunset vibes. Each of the 1,999 Buddies is uniquely styled from head to toe with no duplicate combos.
+            Streetwear, cowboy sherpas, cyberpunk headsets, varsity gear and sunset vibes. Each of the 1,999 pieces is tied to unique Taproot single-use seals on Bitcoin and confidential RGB smart contracts.
           </p>
         </div>
 
@@ -33,7 +33,7 @@ export const ShowcaseSection: React.FC = () => {
                   alt={buddy.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-2.5 right-2.5 bg-[#141225]/85 backdrop-blur-md text-[#FFD469] font-['Silkscreen'] text-xs px-2 py-1 rounded border border-[#FFD469]/30">
+                <div className="absolute top-2.5 right-2.5 bg-[#141225]/85 backdrop-blur-md text-[#FFD469] font-mono font-bold text-xs px-2 py-1 rounded border border-[#FFD469]/30">
                   {buddy.tag}
                 </div>
               </div>
@@ -55,12 +55,12 @@ export const ShowcaseSection: React.FC = () => {
 
         <div className="mt-12 text-center">
           <a
-            href="https://x.com/funkybuddies"
+            href="https://x.com/tether_to"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0e2f45] text-[#7EC8F0] font-bold text-xs uppercase tracking-wider hover:bg-[#141225] transition-colors"
           >
-            Preview More Drops On @funkybuddies
+            Preview More Drops On @tether_to
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>

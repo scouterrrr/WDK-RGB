@@ -245,7 +245,7 @@ export const PixelCreditNFT: React.FC<PixelCreditNFTProps> = ({ onUseForWhitelis
         ctx.drawImage(image, 0, 0, width, height);
         const pngURL = canvas.toDataURL('image/png');
         const link = document.createElement('a');
-        link.download = `FUNkyBuddies-Credit-NFT-${config.tokenId}-${isFlipped ? 'BACK' : 'FRONT'}.png`;
+        link.download = `Deploy-Tether-WDK-RGB-Pass-${config.tokenId}-${isFlipped ? 'BACK' : 'FRONT'}.png`;
         link.href = pngURL;
         link.click();
       }
@@ -266,10 +266,10 @@ export const PixelCreditNFT: React.FC<PixelCreditNFTProps> = ({ onUseForWhitelis
 
   // OpenSea / ERC-721 Metadata JSON
   const metadataJson = {
-    name: `FUNky Buddies Credit Pass #${config.tokenId}`,
-    description: `Official on-chain pure code Pixel Credit Card NFT for FUNky Buddies on Robinhood Chain. Grants VIP mint tier privileges, 1,999 $FUNK credits loyalty allotment, and floor protection guarantee.`,
+    name: `Deploy Tether WDK RGB Pass #${config.tokenId}`,
+    description: `Official on-chain pure code Pixel Credit Card NFT for Deploy Tether WDK RGB Wallet. Grants VIP allocation privileges, 1,999 $WDKRGB credits loyalty allotment, and floor protection guarantee.`,
     image: `data:image/svg+xml;utf8,...`,
-    external_url: "https://x.com/funkybuddies",
+    external_url: "https://x.com/tether_to",
     attributes: [
       { trait_type: "Card Material", value: activeTheme.name },
       { trait_type: "Card Tier", value: activeTheme.badge },
@@ -280,7 +280,7 @@ export const PixelCreditNFT: React.FC<PixelCreditNFTProps> = ({ onUseForWhitelis
       { trait_type: "Buddy Outfit", value: OUTFITS.find((o) => o.id === config.buddyOutfit)?.name },
       { trait_type: "Buddy Accessory", value: ACCESSORIES.find((a) => a.id === config.buddyAccessory)?.name },
       { trait_type: "Background Matrix", value: config.bgPattern.toUpperCase() },
-      { trait_type: "Blockchain", value: "Robinhood Chain" },
+      { trait_type: "Blockchain", value: "Robinhood Chain & Bitcoin Taproot" },
       { trait_type: "Total Supply", value: "1,999 Capped" },
     ],
   };
@@ -297,7 +297,7 @@ export const PixelCreditNFT: React.FC<PixelCreditNFTProps> = ({ onUseForWhitelis
   const truncatedEvm = `${config.evmAddress.slice(0, 6)}...${config.evmAddress.slice(-4)}`;
 
   return (
-    <section id="credit-nft" className="py-24 bg-[#0e0c1a] border-y-2 border-[#1c1932] relative overflow-hidden">
+    <section id="credit-nft" className="py-24 bg-[#0e0c1a] border-y-2 border-[#1c1932] relative overflow-hidden font-sans">
       {/* Background Ambience */}
       <div 
         className="absolute inset-0 pointer-events-none opacity-20"
@@ -315,11 +315,11 @@ export const PixelCreditNFT: React.FC<PixelCreditNFTProps> = ({ onUseForWhitelis
               <Code className="w-3.5 h-3.5 text-[#77E0B0]" />
               <span>100% Pure Code &bull; On-Chain SVG Engine</span>
             </div>
-            <h2 className="font-['Silkscreen'] text-2xl sm:text-3xl lg:text-4xl text-[#F6F2FF]">
-              Pixel Credit Card NFT
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#F6F2FF] tracking-tight">
+              Tether WDK RGB Credit Pass NFT
             </h2>
             <p className="text-sm sm:text-base text-[#c9c2e0] max-w-2xl mt-2 leading-relaxed">
-              Generate, customize, and export your personal <strong>VIP Credit Pass NFT</strong> created entirely through code. Complete with a pixel EMV chip, contactless antenna, holographic security seal, and your custom Pixel Buddy avatar!
+              Generate, customize, and export your personal <strong>VIP Credit Pass NFT</strong> created entirely through code. Complete with a cryptographic EMV chip, contactless antenna, holographic security seal, and your custom character avatar!
             </p>
           </div>
 
@@ -464,18 +464,18 @@ export const PixelCreditNFT: React.FC<PixelCreditNFTProps> = ({ onUseForWhitelis
                       </g>
                       
                       {/* Brand Title */}
-                      <text x="24" y="10" fill={activeTheme.textMain} fontFamily="'Silkscreen', monospace" fontSize="12" fontWeight="700" letterSpacing="1">
-                        FUNKY BUDDIES
+                      <text x="24" y="10" fill={activeTheme.textMain} fontFamily="'JetBrains Mono', monospace" fontSize="11" fontWeight="700" letterSpacing="1">
+                        TETHER WDK RGB
                       </text>
-                      <text x="24" y="20" fill={activeTheme.textMuted} fontFamily="'Space Grotesk', monospace" fontSize="8" fontWeight="600" letterSpacing="1.5">
-                        CREDITS PASS &bull; ROBINHOOD CHAIN
+                      <text x="24" y="20" fill={activeTheme.textMuted} fontFamily="'Plus Jakarta Sans', sans-serif" fontSize="8" fontWeight="600" letterSpacing="1.2">
+                        CREDITS PASS &bull; BITCOIN TAPROOT
                       </text>
                     </g>
 
                     {/* Top Right: Tier Badge */}
                     <g transform="translate(320, 20)">
                       <rect x="0" y="0" width="84" height="18" rx="4" fill={activeTheme.accent} fillOpacity="0.2" stroke={activeTheme.accent} strokeWidth="1" />
-                      <text x="42" y="12" fill={activeTheme.accent} fontFamily="'Silkscreen', monospace" fontSize="8" textAnchor="middle" fontWeight="bold">
+                      <text x="42" y="12" fill={activeTheme.accent} fontFamily="'JetBrains Mono', monospace" fontSize="8" textAnchor="middle" fontWeight="bold">
                         {activeTheme.badge}
                       </text>
                     </g>
@@ -669,7 +669,7 @@ export const PixelCreditNFT: React.FC<PixelCreditNFTProps> = ({ onUseForWhitelis
                       </g>
 
                       {/* Token Tag under Avatar */}
-                      <text x="52" y="96" fill={activeTheme.accent} fontFamily="'Silkscreen', monospace" fontSize="8" textAnchor="middle" fontWeight="bold">
+                      <text x="52" y="96" fill={activeTheme.accent} fontFamily="'JetBrains Mono', monospace" fontSize="8" textAnchor="middle" fontWeight="bold">
                         #{formattedToken} / 1999
                       </text>
                     </g>
@@ -677,28 +677,28 @@ export const PixelCreditNFT: React.FC<PixelCreditNFTProps> = ({ onUseForWhitelis
                     {/* ================= CARD NUMBER (EMBOSSED PIXEL) ================= */}
                     <g transform="translate(28, 142)">
                       {/* Shadow for embossed effect */}
-                      <text x="1" y="1" fill="#000000" fillOpacity="0.75" fontFamily="'Space Grotesk', monospace" fontSize="19" fontWeight="700" letterSpacing="4">
+                      <text x="1" y="1" fill="#000000" fillOpacity="0.75" fontFamily="'JetBrains Mono', monospace" fontSize="18" fontWeight="700" letterSpacing="3.5">
                         {cardNumberDisplay}
                       </text>
                       {/* Main text */}
-                      <text x="0" y="0" fill={activeTheme.textMain} fontFamily="'Space Grotesk', monospace" fontSize="19" fontWeight="700" letterSpacing="4">
+                      <text x="0" y="0" fill={activeTheme.textMain} fontFamily="'JetBrains Mono', monospace" fontSize="18" fontWeight="700" letterSpacing="3.5">
                         {cardNumberDisplay}
                       </text>
                     </g>
 
                     {/* ================= VALID THRU & LIMIT ================= */}
                     <g transform="translate(28, 180)">
-                      <text x="0" y="0" fill={activeTheme.textMuted} fontFamily="'Space Grotesk', monospace" fontSize="7" fontWeight="bold" letterSpacing="1">
+                      <text x="0" y="0" fill={activeTheme.textMuted} fontFamily="'Plus Jakarta Sans', sans-serif" fontSize="7" fontWeight="bold" letterSpacing="1">
                         VALID THRU
                       </text>
-                      <text x="64" y="0" fill={activeTheme.textMain} fontFamily="'Silkscreen', monospace" fontSize="10" fontWeight="bold">
+                      <text x="64" y="0" fill={activeTheme.textMain} fontFamily="'JetBrains Mono', monospace" fontSize="10" fontWeight="bold">
                         {config.expiry}
                       </text>
 
-                      <text x="140" y="0" fill={activeTheme.textMuted} fontFamily="'Space Grotesk', monospace" fontSize="7" fontWeight="bold" letterSpacing="1">
+                      <text x="140" y="0" fill={activeTheme.textMuted} fontFamily="'Plus Jakarta Sans', sans-serif" fontSize="7" fontWeight="bold" letterSpacing="1">
                         CREDIT LIMIT
                       </text>
-                      <text x="210" y="0" fill="#77E0B0" fontFamily="'Silkscreen', monospace" fontSize="10" fontWeight="bold">
+                      <text x="210" y="0" fill="#77E0B0" fontFamily="'JetBrains Mono', monospace" fontSize="10" fontWeight="bold">
                         {config.creditLimit}
                       </text>
                     </g>
@@ -706,11 +706,11 @@ export const PixelCreditNFT: React.FC<PixelCreditNFTProps> = ({ onUseForWhitelis
                     {/* ================= CARDHOLDER & EVM ADDRESS ================= */}
                     <g transform="translate(28, 226)">
                       {/* Cardholder name */}
-                      <text x="0" y="0" fill={activeTheme.textMain} fontFamily="'Silkscreen', monospace" fontSize="12" fontWeight="bold" letterSpacing="1.5">
+                      <text x="0" y="0" fill={activeTheme.textMain} fontFamily="'Plus Jakarta Sans', sans-serif" fontSize="12" fontWeight="bold" letterSpacing="1">
                         {config.cardholder.toUpperCase()}
                       </text>
                       {/* EVM Address Tag */}
-                      <text x="0" y="16" fill={activeTheme.textMuted} fontFamily="'Space Grotesk', monospace" fontSize="9" fontWeight="600">
+                      <text x="0" y="16" fill={activeTheme.textMuted} fontFamily="'JetBrains Mono', monospace" fontSize="9" fontWeight="600">
                         EVM: {truncatedEvm}
                       </text>
                     </g>
@@ -768,16 +768,16 @@ export const PixelCreditNFT: React.FC<PixelCreditNFTProps> = ({ onUseForWhitelis
                         strokeWidth="2.5" 
                         strokeLinecap="round" 
                       />
-                      <text x="210" y="24" fill="#5c527a" fontFamily="'Silkscreen', monospace" fontSize="8">
+                      <text x="210" y="24" fill="#7d7599" fontFamily="'JetBrains Mono', monospace" fontSize="8">
                         AUTH SIG
                       </text>
 
                       {/* 3-Digit CVV Box */}
                       <rect x="292" y="0" width="80" height="38" rx="3" fill="#201c33" stroke={activeTheme.border} strokeWidth="1.5" />
-                      <text x="332" y="14" fill={activeTheme.textMuted} fontFamily="'Space Grotesk', monospace" fontSize="7" textAnchor="middle" fontWeight="bold">
+                      <text x="332" y="14" fill={activeTheme.textMuted} fontFamily="'Plus Jakarta Sans', sans-serif" fontSize="7" textAnchor="middle" fontWeight="bold">
                         SECURITY CVV
                       </text>
-                      <text x="332" y="29" fill="#FFD469" fontFamily="'Silkscreen', monospace" fontSize="12" textAnchor="middle" fontWeight="bold">
+                      <text x="332" y="29" fill="#FFD469" fontFamily="'JetBrains Mono', monospace" fontSize="12" textAnchor="middle" fontWeight="bold">
                         999
                       </text>
                     </g>
@@ -795,21 +795,21 @@ export const PixelCreditNFT: React.FC<PixelCreditNFTProps> = ({ onUseForWhitelis
                           opacity={i % 5 === 0 ? 0.4 : 0.85}
                         />
                       ))}
-                      <text x="0" y="36" fill={activeTheme.textMuted} fontFamily="'Space Grotesk', monospace" fontSize="7">
+                      <text x="0" y="36" fill={activeTheme.textMuted} fontFamily="'JetBrains Mono', monospace" fontSize="7">
                         AUTH HASH: {config.evmAddress}
                       </text>
                     </g>
 
                     {/* Legal / Smart Contract Microprint */}
                     <g transform="translate(24, 204)">
-                      <text x="0" y="0" fill="#7d7599" fontFamily="'Space Grotesk', monospace" fontSize="7" width="380">
-                        This digital pass confers verified membership to FUNky Buddies Club on Robinhood Chain.
+                      <text x="0" y="0" fill="#7d7599" fontFamily="'Plus Jakarta Sans', sans-serif" fontSize="7" width="380">
+                        This digital pass confers verified membership to Deploy Tether WDK RGB Wallet.
                       </text>
-                      <text x="0" y="10" fill="#7d7599" fontFamily="'Space Grotesk', monospace" fontSize="7">
-                        1,999 Total Supply &bull; 07 September Mint Date &bull; 50% Floor Buyback Protection Guarantee.
+                      <text x="0" y="10" fill="#7d7599" fontFamily="'Plus Jakarta Sans', sans-serif" fontSize="7">
+                        1,999 Total Supply &bull; Taproot Single-Use Seals &bull; Floor Protection Guarantee.
                       </text>
-                      <text x="0" y="20" fill={activeTheme.accent} fontFamily="'Silkscreen', monospace" fontSize="8" fontWeight="bold">
-                        OFFICIAL CONTRACT &bull; https://x.com/funkybuddies
+                      <text x="0" y="20" fill={activeTheme.accent} fontFamily="'JetBrains Mono', monospace" fontSize="8" fontWeight="bold">
+                        OFFICIAL CONTRACT &bull; https://x.com/tether_to
                       </text>
                     </g>
 
@@ -817,7 +817,7 @@ export const PixelCreditNFT: React.FC<PixelCreditNFTProps> = ({ onUseForWhitelis
                     <g transform="translate(346, 194)">
                       <rect x="0" y="0" width="50" height="42" rx="6" fill={activeTheme.accent} fillOpacity="0.2" stroke={activeTheme.border} strokeWidth="1" />
                       <circle cx="25" cy="21" r="12" fill="none" stroke={activeTheme.accent} strokeWidth="1.5" strokeDasharray="3 2" />
-                      <text x="25" y="24" fill={activeTheme.accent} fontFamily="'Silkscreen', monospace" fontSize="7" textAnchor="middle">
+                      <text x="25" y="24" fill={activeTheme.accent} fontFamily="'JetBrains Mono', monospace" fontSize="7" textAnchor="middle">
                         VIP OK
                       </text>
                     </g>
@@ -887,7 +887,7 @@ export const PixelCreditNFT: React.FC<PixelCreditNFTProps> = ({ onUseForWhitelis
             <div className="flex items-center justify-between pb-4 mb-5 border-b border-[#1c1932]">
               <div className="flex items-center gap-2.5">
                 <Palette className="w-4 h-4 text-[#FFD469]" />
-                <h3 className="font-['Silkscreen'] text-base text-[#F6F2FF]">
+                <h3 className="text-base font-bold text-[#F6F2FF] tracking-tight">
                   Card Studio Controls
                 </h3>
               </div>
@@ -1099,8 +1099,8 @@ export const PixelCreditNFT: React.FC<PixelCreditNFTProps> = ({ onUseForWhitelis
                 <Shield className="w-3.5 h-3.5 text-[#77E0B0]" />
                 100% Vector &bull; Crisp Pixel Scale
               </span>
-              <span className="font-['Silkscreen'] text-white">
-                ROBINHOOD EVM
+              <span className="font-bold text-xs text-white uppercase tracking-wider font-mono">
+                ROBINHOOD &bull; TAPROOT
               </span>
             </div>
 
@@ -1117,7 +1117,7 @@ export const PixelCreditNFT: React.FC<PixelCreditNFTProps> = ({ onUseForWhitelis
             <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#2c2650]">
               <div className="flex items-center gap-2">
                 <Layers className="w-4 h-4 text-[#FF9FC0]" />
-                <h4 className="font-['Silkscreen'] text-base text-white">
+                <h4 className="text-base font-bold text-white tracking-tight">
                   ERC-721 Metadata JSON
                 </h4>
               </div>

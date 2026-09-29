@@ -54,28 +54,28 @@ export const MysteryBox: React.FC<MysteryBoxProps> = ({
           <div className="relative bg-[#FAF5E9] border-4 border-[#1F1B18] rounded-t-xl p-4 shadow-xl overflow-hidden">
             {/* Top Stars & Sparkles Pattern */}
             <div className="flex justify-between items-center mb-1 text-xs text-[#1F1B18]/70">
-              <span className="font-pixel text-[10px]">✨ SERIES 01</span>
-              <span className="font-pixel text-[10px]">LIMITED BLIND BOX ✨</span>
+              <span className="font-mono font-bold text-[10px]">✨ SERIES 01</span>
+              <span className="font-mono font-bold text-[10px]">LIMITED BLIND BOX ✨</span>
             </div>
 
-            {/* Header: "FUNKY BUDDIES" in 3D chunky pixel lettering */}
+            {/* Header: "TETHER WDK" in bold lettering */}
             <div className="text-center my-1 relative">
               <div className="inline-block relative">
                 <span
-                  className="font-pixel text-2xl sm:text-3xl font-extrabold tracking-wider text-[#C4B5FD] drop-shadow-[2px_2px_0px_#1F1B18] select-none block"
+                  className="font-extrabold text-2xl sm:text-3xl tracking-tight text-[#C4B5FD] drop-shadow-[2px_2px_0px_#1F1B18] select-none block"
                   style={{
                     textShadow: '3px 3px 0 #1F1B18, -1px -1px 0 #1F1B18, 1px -1px 0 #1F1B18, -1px 1px 0 #1F1B18',
                   }}
                 >
-                  FUNKY
+                  TETHER WDK
                 </span>
                 <span
-                  className="font-pixel text-2xl sm:text-3xl font-extrabold tracking-wider text-[#FCD34D] drop-shadow-[2px_2px_0px_#1F1B18] select-none block -mt-1"
+                  className="font-extrabold text-2xl sm:text-3xl tracking-tight text-[#FCD34D] drop-shadow-[2px_2px_0px_#1F1B18] select-none block -mt-1"
                   style={{
                     textShadow: '3px 3px 0 #1F1B18, -1px -1px 0 #1F1B18, 1px -1px 0 #1F1B18, -1px 1px 0 #1F1B18',
                   }}
                 >
-                  BUDDIES
+                  RGB WALLET
                 </span>
               </div>
             </div>
